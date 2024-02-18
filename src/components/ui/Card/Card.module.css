@@ -1,0 +1,19 @@
+.card {
+    background-color: #eee;
+    border-radius: 12px;
+    padding: 20px 15px;
+    display: flex;
+    align-items: center;
+    cursor: default;
+}
+
+.title {
+    font-size: 19px;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.price {
+    margin-top: 7px;
+    opacity: 0.8;
+}

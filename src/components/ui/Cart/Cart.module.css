@@ -1,0 +1,73 @@
+
+
+.cart h1 {
+    font-size: 28px;
+}
+
+.cart {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.cartInner {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.cartMain {
+    margin-top: 20px;
+}
+
+.cartFooter {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    transform: translateX(-20px);
+    background-color: #fff;
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border-default);
+}
+
+.cartFooterInner {
+    height: 100%;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 30px;
+}
+
+
+.emptyCart {
+    height: 95%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+}
+
+
+.cartProduct {
+    background-color: #ccc;
+    margin-bottom: 10px;
+    padding: 50px;
+}
+
+.cartFooterTotal {
+    font-size: 18px;
+}
+
+.cartFooterTotalNum {
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    grid-gap: 10px; /* Расстояние между карточками */
+  }
+

@@ -1,0 +1,51 @@
+/* global css file */
+
+:root {
+
+    --main: #1b82cb;
+    --main-light: #2697e8;
+    --main-dark: #186daa;
+
+    --navbar-height: 60px;
+    --border-default: rgb(234, 234, 234);
+}
+
+html {
+    font-display: auto !important;
+    text-rendering: geometricPrecision !important;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0px !important; /* ширина полосы прокрутки */
+  }
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "SF Pro Display" !important;
+}
+
+.app {
+    height: 100dvh;
+    width: 100%;
+}
+
+.app-wrapper {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.app-layout {
+    margin: 90px 20px;
+}
+
+.section-title {
+    font-size: 28px;
+}
+
+.hidden {
+    visibility: hidden;
+}

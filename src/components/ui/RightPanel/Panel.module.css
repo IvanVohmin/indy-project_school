@@ -1,0 +1,46 @@
+.panel {
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    height: 100vh;
+    width: 100vw;
+    /* background: rgba(0,0,0,0.6); */
+    color: black;
+}
+
+.panelInner {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.window {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background-color: rgb(245, 245, 245);
+    overflow-y: auto;
+    border-left: 1px solid rgb(223, 223, 223);
+    /* border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px; */
+}
+
+.windowInner {
+    height: 100%;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.panelClose {
+    background-color: transparent;
+    border: none;
+    color: rgb(100, 100, 100);
+    font-size: 30px;
+    margin-bottom: 8px;
+    transition: 0.2s filter;
+}
+
+.panelClose:hover {
+    filter: brightness(70%);
+}

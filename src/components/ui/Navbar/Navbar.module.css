@@ -1,0 +1,39 @@
+.navbar {
+    position: fixed;
+    height: var(--navbar-height);
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+    border-top: 1px solid var(--border-default);
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+}
+
+.navbarInner {
+    display: inline-flex;
+}
+
+.navbarLink {
+    cursor: pointer;
+    text-align: center;
+    margin: 100px 7px;
+    padding: 10px;
+}
+
+.navbarLinkInner {
+    width: 100%;
+    height: 100%;
+}
+
+.navbarLinkIcon {
+    font-size: 22px;
+    margin-bottom: 7px;
+    color: var(--main);
+}
+
+.navbarLinkTitle {
+    font-weight: 400;
+    font-size: 14px;
+}
