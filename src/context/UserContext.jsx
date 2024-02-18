@@ -22,7 +22,7 @@ export const UserProvider = ({ children }) => {
                     .then(user => setTimeout(() => {
                         setAuthUser({
                             user: user,
-                            isAuth: false,
+                            isAuth: true,
                             loaded: true
                         })
                     }, 500)
