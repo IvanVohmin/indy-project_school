@@ -8,6 +8,7 @@
     height: 100%;
     width: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .cartInner {
@@ -56,13 +57,25 @@
     padding: 50px;
 }
 
+.inline {
+    display: inline-flex;
+}
+
+.clearBtn {
+    font-size: 12px;
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    background-color: #eee;
+    margin-left: 10px;
+}
+
 .cartFooterTotal {
     font-size: 18px;
 }
 
 .cartFooterTotalNum {
     font-weight: 600;
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .parent {

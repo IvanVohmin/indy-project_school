@@ -12,7 +12,11 @@
 
 .number {
     color: var(--main);
-    font-size: 45px;
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.bottom {
     margin-bottom: 10px;
 }
 

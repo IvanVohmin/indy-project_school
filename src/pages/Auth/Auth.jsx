@@ -3,10 +3,14 @@ import React from 'react';
 import AnimateBlock from '../../animations/AnimateBlock';
 import { apiRoute } from '../../api/api';
 import styles from "./Auth.module.css"
+import { users } from '../../fakedata/users';
+import { UserContext } from '../../context/UserContext';
 
 const Auth = () => {
 
-    const [login, setLogin] = React.useState("")
+    const {login} = React.useContext(UserContext)
+
+    const [phone, setPhone] = React.useState("")
     const [pwd, setPwd] = React.useState("")
 
     const [errors, setErr] = React.useState("")
@@ -14,17 +18,28 @@ const Auth = () => {
     const handleClick = async (e) => {
         e.preventDefault()
 
-        if (login === "" && pwd === "") {
+        if (phone === "" && pwd === "") {
             return setErr("Заполните поля")
         }
 
-        const {data} = await axios.post(apiRoute("/users"))
+        // const {data} = await axios.post(apiRoute("/users"))
 
-        if (!data) {
-            return setErr("Возникли ошибки, попробуйте еще раз")
+        // if (!data) {
+        //     return setErr("Возникли ошибки, попробуйте еще раз")
+        // }
+
+        // console.log(data)
+
+        const user = users.find(i => i.phone == phone && i.password == pwd)
+        
+        if (user) {
+            setErr("")
+            console.log(user)
+            login(user)
+            window.location.href = "/"
+        } else {
+            setErr("Неправильный логин/пароль")
         }
-
-        console.log(data)
         
     }
 
@@ -37,11 +52,11 @@ const Auth = () => {
                             <h4>Авторизация</h4>
                             <div className={styles.authFormInner}>
                                 <input 
-                                    placeholder='Логин' 
+                                    placeholder='Телефон' 
                                     type="text" 
                                     className="form-control mb-2" 
-                                    value={login}
-                                    onChange={e => setLogin(e.target.value)}
+                                    value={phone}
+                                    onChange={e => setPhone(e.target.value)}
                                 />
                                 <input 
                                     placeholder='Пароль' 

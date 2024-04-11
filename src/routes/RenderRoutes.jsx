@@ -5,9 +5,6 @@ import { ProtectedRoute } from './ProtectedRoute';
 
 const RenderRoutes = ({children}) => {
 
-    // не авторизованы
-    const status = false;
-
     return (
         <>
             <BrowserRouter>
@@ -15,7 +12,7 @@ const RenderRoutes = ({children}) => {
                     {appRoutes.map(i => (
                         (i.isPrivate ? 
                             <Route path={i.path} element={
-                                <ProtectedRoute isAuth={status}>
+                                <ProtectedRoute>
                                     {i.el}
                                 </ProtectedRoute>
                             } key={i.name} />

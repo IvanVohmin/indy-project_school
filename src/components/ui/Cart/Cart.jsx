@@ -1,22 +1,46 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
 import { useContext } from 'react';
 import { CartContext } from '../../../context/CartContext';
-import Card from '../Card/Card';
+import { OrdersContext } from '../../../context/OrdersContext';
+import { UserContext } from '../../../context/UserContext';
+import { useNotification } from '../../../hooks/useNotification';
+import { useUser } from '../../../hooks/useUser';
+import CartCard from '../Card/CartCard';
+
 import styles from "./Cart.module.css"
-import CartProduct from './CartProduct';
 
 const Cart = () => {
 
-    const { cart, cartPush, calculateCart } = useContext(CartContext)
+    const {authUser, changeBalance} = useContext(UserContext)
+    const { cart, cartPush, calculateCart, clearCart, clearCartExternal } = useContext(CartContext)
+    const { orderPush } = useContext(OrdersContext)
+
+    const user = authUser
 
     function handleClick() {
         const test = {
+            id: new Date().getTime() + Math.random(),
             title: "Пирожок",
             price: 123,
         }
         cartPush(test)
+    }
+
+    const handlePay = () => {
+        if (!cart.length) return
+        if (!window.confirm("Подтвердите оформление")) return
+        if (user.user.balance < calculateCart()) return useNotification("error", "Недостаточно средств")
+        const out = {
+            id: new Date().getTime(),
+            products: cart,
+            number: new Date().getTime(),
+            totalCost: calculateCart(),
+            status: "PROGRESS"
+        }
+        orderPush(out)
+        changeBalance(user.user.balance - calculateCart())
+        clearCartExternal()
+        useNotification("warning", "Заказ офомлен, ожидайте...")
     }
 
     return (
@@ -26,19 +50,29 @@ const Cart = () => {
                     {cart.length === 0 ? (
                         <>
                             <div className={styles.emptyCart}>
-                                <h1>Корзина пока пустая...</h1>
-                                <button onClick={handleClick}>add</button>
+                                <h4>Корзина пока пустая...</h4>
+                                {/* <button onClick={handleClick}>add</button> */}
                             </div>
                         </>
                     ) : (
                         <>
-                            <h1>Корзина</h1>
+                            <div className={styles.inline}>
+                                <h1>Корзина</h1>
+                                <button className={styles.clearBtn} onClick={clearCart}>Очистить корзину</button>
+                            </div>
                             <div className={`${styles.cartMain}`}>
-                            <button onClick={handleClick}>add</button>
                                 <div className={styles.parent}>
-                                {cart.map(i => (
-                                    <Card type={"cart"} title={i.title} price={i.price} key={i.price} />
-                                ))}
+                                    {cart.map(i => (
+                                        <div key={i.id} id={i.id}>
+                                            <CartCard
+                                                type={"cart"}
+                                                title={i.title}
+                                                price={i.price}
+                                                id={i.id}
+                                            />
+                                        </div>
+
+                                    ))}
                                 </div>
                                 <p className='hidden'> ------ </p>
                                 <p className='hidden'> ------ </p>
@@ -50,7 +84,7 @@ const Cart = () => {
                             <div className={`${styles.cartFooter} shadow-sm`}>
                                 <div className={styles.cartFooterInner}>
                                     <p className={styles.cartFooterTotal}>Итого: <span className={styles.cartFooterTotalNum}>{calculateCart()} руб.</span></p>
-                                    <button className="btn btn-success">К оплате</button>
+                                    <button className="btn btn-success" onClick={() => handlePay()}>К оплате</button>
                                 </div>
                             </div>
                         </>

@@ -2,36 +2,26 @@ import React from 'react';
 import AnimateBlock from '../../../../animations/AnimateBlock';
 import Card from '../../Card/Card';
 import styles from "../Categories.module.css"
+import { hot } from '../../../../fakedata/food';
 
 const HotDishes = () => {
     return (
         <>
             <AnimateBlock>
                 <div className={styles.category}>
-                    <h1 className={styles.catTitle}>Горячее</h1>
+                    <h1 className={styles.catTitle}>Горячее <i className="ml-1 fa-light fa-pot-food"></i></h1>
                     <div className={styles.categoryInner}>
                         <div className={styles.parent}>
-
-                            <Card
-                                title={"Макаронны"}
-                                price={15}
-                                amount={35}
-                            />
-                            <Card
-                                title={"Гречка с мясом"}
-                                price={15}
-                                amount={35}
-                            />
-                            <Card
-                                title={"Каша овсянная"}
-                                price={15}
-                                amount={35}
-                            />
-                            <Card
-                                title={"Суп красный"}
-                                price={15}
-                                amount={35}
-                            />
+                            {!hot.length && <p className='text-muted'>Товаров пока нету.</p>}
+                            {hot?.map(i => (
+                                <Card
+                                    title={i.title}
+                                    price={i.price}
+                                    amount={0}
+                                    data={i}
+                                    key={i.id}
+                                />
+                            ))}
                         </div>
                     </div>
                 </div>

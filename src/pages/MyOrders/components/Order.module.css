@@ -1,0 +1,43 @@
+
+.order {
+    background-color: #eee;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    transition: 0.25s filter;
+}
+
+.order:hover {
+    filter: brightness(95%);
+    cursor: pointer;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.wrapper {
+    opacity: 0.9;
+}
+
+.products {
+    margin: 5px 0;
+}
+
+.product {
+    margin: 10px 0;
+}
+
+.productsInner {
+    opacity: 0.8;
+}
+
+.includes {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.status {
+    margin: 6px 0;
+}

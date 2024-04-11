@@ -1,0 +1,54 @@
+
+
+.page {
+    height: 100dvh;
+    width: 100%;
+}
+
+.inner {
+    margin-top: 10px;
+}
+
+.title {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.box {
+    display: block;
+    margin: 15px 0;
+}
+
+.boxInner {
+    display: inline-flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.key {
+    color: var(--main);
+    margin-left: 5px;
+}
+
+.value {
+    opacity: 0.9;
+}
+
+.info {
+    opacity: 1;
+}
+
+.actions {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.actionsInner {
+    display: block;
+}
+
+#show {
+    margin-left: 8px;
+    cursor: pointer;
+    color: grey !important;
+}

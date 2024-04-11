@@ -1,16 +1,13 @@
 import React from 'react';
 import styles from "./Navbar.module.css"
-import { useNavigate } from "react-router-dom"
-import SkeletonLoader from '../SkeletonLoader/SkeletonLoader';
-import { UserContext } from '../../../context/UserContext';
+import {Link} from 'react-router-dom'
 import RightPanel from "../RightPanel/RightPanel.jsx";
 import Cart from "../Cart/Cart.jsx";
+import useAuth from '../../../hooks/useAuth';
 
 const Navbar = (props) => {
 
-    const navigate = useNavigate()
-
-    const { authUser } = React.useContext(UserContext)
+    const auth = useAuth()
 
     const [activeOrders, setActiveOrders] = React.useState(false)
 
@@ -19,19 +16,19 @@ const Navbar = (props) => {
             id: 1,
             icon: "fa-home",
             title: "Главная",
-            url: "/main"
+            url: "/"
         },
         {
             id: 2,
             icon: "fa-user",
             title: "Профиль",
-            url: "/hello"
+            url: "/profile"
         },
         {
             id: 3,
             icon: "fa-light fa-bag-shopping",
             title: "Мои заказы",
-            url: "/orders"
+            url: "/myorders"
         },
 
     ]
@@ -41,7 +38,7 @@ const Navbar = (props) => {
             id: 1,
             icon: "fa-home",
             title: "Главная",
-            url: "/main"
+            url: "/"
         },
         {
             id: 2,
@@ -54,13 +51,8 @@ const Navbar = (props) => {
 
     const NavbarLink = (props) => {
 
-        const redirect = (url) => {
-            // redirect
-            navigate(url)
-        }
-
         return (
-            <div className={styles.navbarLink} onClick={() => redirect(props.to)}>
+            <Link className={styles.navbarLink} to={props.to}>
                 <div className={styles.navbarLinkInner}>
                     {props.icon ?
                         <i className={`${styles.navbarLinkIcon} fa-light ${props.icon}`}></i>
@@ -73,7 +65,7 @@ const Navbar = (props) => {
                         <p className={styles.navbarLinkTitle}>undefined</p>
                     }
                 </div>
-            </div>
+            </Link>
         )
     }
 
@@ -82,39 +74,37 @@ const Navbar = (props) => {
         <>
             <div className={styles.navbar}>
                 <div className={styles.navbarInner}>
-                    {authUser.loaded ? (
-                        authUser.isAuth ? (
-                            auth_routes.map(i => (
-                                i.url === "/orders" ? (
-                                        <NavbarLink
-                                            key={i.id}
-                                            icon={i.icon}
-                                            title={i.title}
-                                            to={i.url}
-                                        />
-                                    )
-                                : (
-                                        <NavbarLink
-                                            key={i.id}
-                                            icon={i.icon}
-                                            title={i.title}
-                                            to={i.url}
-                                        />
-                                    )
-                            ))
-                        ) : (
-                            unauth_routes.map(i => (
+                    {auth ? (
+                        auth_routes.map(i => (
+                            i.url === "/orders" ? (
                                 <NavbarLink
                                     key={i.id}
                                     icon={i.icon}
                                     title={i.title}
                                     to={i.url}
                                 />
-                            )) 
-                        )
+                            )
+                                : (
+                                    <NavbarLink
+                                        key={i.id}
+                                        icon={i.icon}
+                                        title={i.title}
+                                        to={i.url}
+                                    />
+                                )
+                        ))
                     ) : (
-                        <SkeletonLoader height={25} width={300} />
-                    )}
+                        unauth_routes.map(i => (
+                            <NavbarLink
+                                key={i.id}
+                                icon={i.icon}
+                                title={i.title}
+                                to={i.url}
+                            />
+                        ))
+                    )
+                    }
+
 
                 </div>
             </div>

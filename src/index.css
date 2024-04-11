@@ -10,21 +10,30 @@
     --border-default: rgb(234, 234, 234);
 }
 
+* {
+    overflow-x: hidden !important;
+}
+
 html {
     font-display: auto !important;
     text-rendering: geometricPrecision !important;
-    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
-    width: 0px !important; /* ширина полосы прокрутки */
+    width: 0px !important;
   }
 
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "SF Pro Display" !important;
+    text-rendering: geometricPrecision !important;
+    font-family: "GT Eesti Pro Display" !important;
+    font-weight: 400;
+}
+
+.btn:focus {
+    box-shadow: none !important;
 }
 
 .app {

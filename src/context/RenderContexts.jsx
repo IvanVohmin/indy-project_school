@@ -1,13 +1,16 @@
 import React from 'react';
 import { CartProvider } from './CartContext';
+import { OrdersProvider } from './OrdersContext';
 import { UserProvider } from './UserContext';
 
-const RenderContexts = ({children}) => {
+const RenderContexts = ({ children }) => {
     return (
-        <>  
+        <>
             <UserProvider>
                 <CartProvider>
-                    {children}
+                    <OrdersProvider>
+                        {children}
+                    </OrdersProvider>
                 </CartProvider>
             </UserProvider>
         </>

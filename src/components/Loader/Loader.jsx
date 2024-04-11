@@ -18,7 +18,7 @@ const Loader = ({ children }) => {
 
     useEffect(() => {
         if (isUserContextLoaded) {
-            console.log(`[Loader.jsx] user context loaded.`)
+            // console.log(`[Loader.jsx] user context loaded.`)
             setTimeout(() => {
                 setLoaderState(false)
             }, loadingDelay * 1000)

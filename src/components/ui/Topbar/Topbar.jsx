@@ -1,16 +1,13 @@
 import React from 'react';
 import styles from "./Topbar.module.css"
-import { appConfig } from '../../../config/config';
-import { UserContext } from '../../../context/UserContext';
 import SkeletonLoader from '../SkeletonLoader/SkeletonLoader';
 import RightPanel from '../RightPanel/RightPanel';
 import Cart from '../Cart/Cart';
+import {useUser, configureUserName} from '../../../hooks/useUser';
 
 const Topbar = () => {
 
-    const bal = 1205;
-
-    const { authUser } = React.useContext(UserContext)
+    const user = useUser()
 
     const [cartOpened, setCartOpened] = React.useState(false)
 
@@ -18,24 +15,24 @@ const Topbar = () => {
         <>
             <div className={styles.topbar}>
                 <div className={styles.topbarInner}>
-                    <p className={styles.topbarLogo}>
-                        {authUser.loaded ?
+                    <div className={styles.topbarLogo}>
+                        {user.loaded ?
                             (
-                                authUser.isAuth ? "Вохмин Иван" : (
+                                user.isAuth ? configureUserName() : (
                                     <p>Не авторизаван</p>
                                 )
                             ) : (
                                 <SkeletonLoader width={150} />
                             )
                         }
-                    </p>
+                    </div>
                     <div className={styles.topbarContentBox}>
                         <p className={styles.topbarBalance}>
-                            {authUser.isAuth ? `${bal.toLocaleString()} руб.` : ""}
+                            {user.isAuth ? `${user.user.balance.toLocaleString()} руб.` : ""}
                         </p>
-                        <div className={styles.topbarCart} onClick={() => setCartOpened(true)}>
+                        {user.isAuth && (<div className={styles.topbarCart} onClick={() => setCartOpened(true)}>
                             <i className="fa-light fa-shopping-cart"></i>
-                        </div>
+                        </div>)}
                     </div>
                 </div>
             </div>

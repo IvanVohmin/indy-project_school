@@ -1,5 +1,6 @@
 import React from 'react';
 import AnimateBlock from '../../../../animations/AnimateBlock';
+import { bakery } from '../../../../fakedata/food';
 import Card from '../../Card/Card';
 import styles from "../Categories.module.css"
 
@@ -8,40 +9,19 @@ const Bakery = () => {
         <>
             <AnimateBlock>
                 <div className={styles.category}>
-                    <h1 className={styles.catTitle}>Выпечка</h1>
+                    <h1 className={styles.catTitle}>Выпечка <i className="fa-light fa-bread-loaf"></i></h1>
                     <div className={styles.categoryInner}>
                         <div className={styles.parent}>
-
-                            <Card
-                                title={"Пицца гашонная"}
-                                price={15}
-                                amount={35}
-                            />
-                            <Card
-                                title={"Булочка с мармеладом"}
-                                price={15}
-                                amount={35}
-                            />
-                            <Card
-                                title={"Булочка кислотная"}
-                                price={15}
-                                amount={35}
-                            />
-                            <Card
-                                title={"Булочка с маком"}
-                                price={15}
-                                amount={35}
-                            />
-                            <Card
-                                title={"Булочка со сгущенкой"}
-                                price={15}
-                                amount={35}
-                            />
-                            <Card
-                                title={"Пончик"}
-                                price={15}
-                                amount={35}
-                            />
+                            {!bakery.length && <p className='text-muted'>Товаров пока нету.</p>}
+                            {bakery?.map(i => (
+                                <Card
+                                    title={i.title}
+                                    price={i.price}
+                                    amount={0}
+                                    data={i}
+                                    key={i.id}
+                                />
+                            ))}
                         </div>
                     </div>
                 </div>

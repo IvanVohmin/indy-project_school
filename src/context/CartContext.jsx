@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
+import { useConfirm } from "../hooks/useConfirm";
 import useLS from "../hooks/useLS";
+import { useNotification } from "../hooks/useNotification";
 
 
 export const CartContext = createContext([])
@@ -14,10 +16,10 @@ export const CartProvider = ({ children }) => {
     const storage = useLS()
 
     const cartPush = (arg) => {
-        let new_cart = [...cart, {...arg}];
-        console.log("new cart > ", new_cart);
-        setCart(new_cart);
+        const new_cart = [...cart, {...arg}];
+        // console.log("new cart > ", new_cart);
         storage.setItem("cart", JSON.stringify(new_cart))
+        setCart(new_cart);
     }
 
     const getCartItem = (id) => {
@@ -28,7 +30,10 @@ export const CartProvider = ({ children }) => {
     const removeItemFromCart = (id) => {
         const indexToRemove = cart.findIndex(item => item.id === id);
         if (indexToRemove !== -1) {
-            cart.splice(indexToRemove, 1);
+           cart.splice(indexToRemove, 1);
+           setCart([...cart])
+           storage.setItem("cart", JSON.stringify(cart))
+           useNotification("success", "Товар удален из корзины.")
         }
     }
 
@@ -50,6 +55,18 @@ export const CartProvider = ({ children }) => {
         }
     }
 
+    const clearCart = () => {
+        if (useConfirm("Очистить корзину?")) {
+            storage.removeItem("cart")
+            setCart([])
+        }
+    }
+
+    const clearCartExternal = () => {
+        storage.removeItem("cart")
+        setCart([])
+    }
+
     useEffect(() => {
         if (storage.getItem("cart") != null || storage.getItem("cart") != undefined) {
             const userCart = storage.getItem("cart")
@@ -58,7 +75,7 @@ export const CartProvider = ({ children }) => {
     }, [])
 
     return (
-        <CartContext.Provider value={{cart, editItem, calculateCart, removeItemFromCart, getCartItem, cartPush, setIndicator, indicator}} >
+        <CartContext.Provider value={{cart, editItem, calculateCart, removeItemFromCart, getCartItem, cartPush, setIndicator, indicator, clearCart, clearCartExternal}} >
             {children}
         </CartContext.Provider>
     )
