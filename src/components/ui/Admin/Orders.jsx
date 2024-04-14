@@ -9,7 +9,7 @@ const Orders = () => {
     const [orders, setOrders] = React.useState([])
 
     React.useEffect(() => {
-        return async () => {
+        async () => {
             try {
                 const req = await axios.post(apiRoute("/orders"))
                 if (req.status === 200) {
