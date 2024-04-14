@@ -8,18 +8,17 @@ const Orders = () => {
 
     const [orders, setOrders] = React.useState([])
 
-    React.useEffect(() => {
-        async () => {
-            try {
-                const req = await axios.post(apiRoute("/orders"))
-                if (req.status === 200) {
-                    setOrders((req.data).reverse())
-                }
-            } catch (err) {
-                console.log(err)
+    const getOrders = async () => {
+        try {
+            const req = await axios.post(apiRoute("/orders"))
+            console.log(req)
+            if (req.status === 200) {
+                setOrders((req.data).reverse())
             }
-        };
-    }, []);
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const handleReady = async (id) => {
         if (window.confirm("Подтверите действие")) {
@@ -52,6 +51,7 @@ const Orders = () => {
 
     return (
         <div className='admin-orders'>
+            <button className="btn mb-3 btn-secondary btn-sm" onClick={getOrders}>Обновить список</button>
             <h1 className='mb-2'>Заказы</h1>
             {orders.length ? (
                 orders?.map(i => (
