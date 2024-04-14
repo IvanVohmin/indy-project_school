@@ -12,6 +12,7 @@ export const UserProvider = ({ children }) => {
         user: null,
         isAuth: false,
         loaded: false,
+        isAdmin: false
     })
 
     const getUserDataFromStorage = () => {
@@ -30,12 +31,14 @@ export const UserProvider = ({ children }) => {
         setAuthUser({
             user: user,
             isAuth: true,
-            loaded: true
+            loaded: true,
+            
         })
         console.log("[UserContext] User fetched")
     }
 
     React.useEffect(() => {
+
         if (!authUser.loaded) {
             const user = getUserDataFromStorage()
             console.log("[UserContext] useEffect() loading...")
@@ -49,6 +52,7 @@ export const UserProvider = ({ children }) => {
             user: arg,
             isAuth: true,
             loaded: true,
+            isAdmin: arg.phone === "admin" ? true : false
         })
         localStorage.setItem("user", JSON.stringify(arg))
     }
@@ -58,7 +62,8 @@ export const UserProvider = ({ children }) => {
             setAuthUser({
                 user: null,
                 isAuth: false,
-                loaded: true
+                loaded: true,
+                isAdmin: false
             })
             localStorage.removeItem("user")
             //  window.location.href = "/"

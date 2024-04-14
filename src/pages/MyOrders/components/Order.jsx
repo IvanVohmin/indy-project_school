@@ -1,8 +1,5 @@
 import React from 'react';
-import Modal from '../../../components/ui/Modal/Modal';
-import RightPanel from '../../../components/ui/RightPanel/RightPanel';
 import styles from "./Order.module.css"
-import OrderDetails from './OrderDetails';
 
 const Order = (props) => {
 
@@ -51,17 +48,14 @@ const Order = (props) => {
                         </div>
                     </div>
                     <p>Сумма заказа: {data.totalCost} руб.</p>
+                    {props.isAdmin && (
+                        <div className='mt-2'>
+                            <button onClick={() => props.onReady(data._id)} className="btn btn-success btn-sm mr-1">Готов!</button>
+                            <button onClick={() => props.onRemove(data._id)} className="btn btn-danger btn-sm">Удалить заказ</button>
+                        </div>
+                    )}
                 </div>
             </div>
-            {/* <RightPanel 
-
-                // показать информацию о заказе
-                active={dataShowed}
-                content={<OrderDetails order={data} />}
-                mobileTransform={767}
-                onClose={() => setShowed(false)}
-
-            /> */}
         </>
     )
 }

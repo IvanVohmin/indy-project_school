@@ -10,7 +10,7 @@ import { OrdersContext } from '../../context/OrdersContext';
 
 const MyOrders = () => {
 
-    const {orders, clear} = useContext(OrdersContext)
+    const {orders, updateOrders} = useContext(OrdersContext)
 
     return (
         <Loader>
@@ -18,7 +18,7 @@ const MyOrders = () => {
                 <div className={styles.pageInner}>
                     <Topbar />
                     <div className="app-layout">
-                        <button className="btn btn-sm btn-secondary mb-4" onClick={clear}>Очистить</button>
+                        <button className="btn btn-sm btn-secondary mb-4" onClick={updateOrders}><i className="fa-thin fa-arrows-rotate"></i> Обновить статусы</button>
                         <h1 className={styles.title}>Мои заказы</h1>
                         <div className={styles.orders}>
                             {!orders.length && <p className={"text-muted"}>
@@ -27,7 +27,7 @@ const MyOrders = () => {
                             {orders?.map(i => (
                                 <Order
                                     data={i}
-                                    key={i.id}
+                                    key={i._id}
                                 />
                             ))}
                         </div>

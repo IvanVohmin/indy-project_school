@@ -1,13 +1,17 @@
 import React from 'react';
 import styles from "./Navbar.module.css"
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import RightPanel from "../RightPanel/RightPanel.jsx";
 import Cart from "../Cart/Cart.jsx";
 import useAuth from '../../../hooks/useAuth';
+import { useContext } from 'react';
+import { UserContext } from '../../../context/UserContext';
 
 const Navbar = (props) => {
 
     const auth = useAuth()
+
+    const { authUser } = useContext(UserContext)
 
     const [activeOrders, setActiveOrders] = React.useState(false)
 
@@ -49,6 +53,21 @@ const Navbar = (props) => {
 
     ]
 
+    const admin_routes = [
+        {
+            id: 1,
+            icon: "fa-home",
+            title: "Главная",
+            url: "/"
+        },
+        {
+            id: 2,
+            icon: "fa-user",
+            title: "Профиль",
+            url: "/profile"
+        },
+    ]
+
     const NavbarLink = (props) => {
 
         return (
@@ -75,7 +94,8 @@ const Navbar = (props) => {
             <div className={styles.navbar}>
                 <div className={styles.navbarInner}>
                     {auth ? (
-                        auth_routes.map(i => (
+                        authUser.isAdmin ? (
+                            admin_routes.map(i => (
                             i.url === "/orders" ? (
                                 <NavbarLink
                                     key={i.id}
@@ -93,15 +113,36 @@ const Navbar = (props) => {
                                     />
                                 )
                         ))
+                        ): (
+                                auth_routes.map(i => (
+                                    i.url === "/orders" ? (
+                                        <NavbarLink
+                                            key={i.id}
+                                            icon={i.icon}
+                                            title={i.title}
+                                            to={i.url}
+                                        />
+                                    )
+                                        : (
+                                            <NavbarLink
+                                                key={i.id}
+                                                icon={i.icon}
+                                                title={i.title}
+                                                to={i.url}
+                                            />
+                                        )
+                                ))
+                        )
+
                     ) : (
                         unauth_routes.map(i => (
-                            <NavbarLink
-                                key={i.id}
-                                icon={i.icon}
-                                title={i.title}
-                                to={i.url}
-                            />
-                        ))
+                    <NavbarLink
+                        key={i.id}
+                        icon={i.icon}
+                        title={i.title}
+                        to={i.url}
+                    />
+                    ))
                     )
                     }
 

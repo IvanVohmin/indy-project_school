@@ -17,30 +17,29 @@ const Cart = () => {
 
     const user = authUser
 
-    function handleClick() {
-        const test = {
-            id: new Date().getTime() + Math.random(),
-            title: "Пирожок",
-            price: 123,
-        }
-        cartPush(test)
+    const generateNumber = () => {
+        const num = new Date().getTime();
+        const strNum = num.toString();
+        const firstSixDigits = strNum.substring(0, 6);
+
+        return firstSixDigits
     }
 
     const handlePay = () => {
         if (!cart.length) return
         if (!window.confirm("Подтвердите оформление")) return
         if (user.user.balance < calculateCart()) return useNotification("error", "Недостаточно средств")
+        useNotification("warning", "Заказ офомлен, ожидайте...")
         const out = {
-            id: new Date().getTime(),
             products: cart,
-            number: new Date().getTime(),
+            number: Math.floor(100000 + Math.random() * 900000),
             totalCost: calculateCart(),
+            owner: user.user.id,
             status: "PROGRESS"
         }
         orderPush(out)
         changeBalance(user.user.balance - calculateCart())
         clearCartExternal()
-        useNotification("warning", "Заказ офомлен, ожидайте...")
     }
 
     return (
